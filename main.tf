@@ -6,15 +6,18 @@ resource "github_repository" "Gitrepo" {
   visibility = "public"
 }
 
+variable "prefix" {
+  default = "tfvmex"
+}
 #resource group
 resource "azurerm_resource_group" "example" {
-  name     = "tfvmex-resources"
+  name     = "${var.prefix}-resources"
   location = "eastus"
 }
 
 #vnet
 resource "azurerm_virtual_network" "main" {
-  name                = "tfvmex-network"
+  name                = "${var.prefix}-network"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
@@ -28,7 +31,7 @@ resource "azurerm_subnet" "internal" {
 }
 
 resource "azurerm_network_interface" "main" {
-  name                = "tfvmex-nic"
+  name                = "${var.prefix}-nic"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
 
@@ -40,7 +43,7 @@ resource "azurerm_network_interface" "main" {
 }
 
 resource "azurerm_virtual_machine" "main" {
-  name                  = "tfvmex-vm"
+  name                  = "${var.prefix}-vm"
   location              = azurerm_resource_group.example.location
   resource_group_name   = azurerm_resource_group.example.name
   network_interface_ids = [azurerm_network_interface.main.id]
