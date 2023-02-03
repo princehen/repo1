@@ -6,9 +6,6 @@ resource "github_repository" "Gitrepo" {
   visibility = "public"
 }
 
-variable "prefix" {
-  default = "tfvmex"
-}
 #resource group
 resource "azurerm_resource_group" "example" {
   name     = "${var.prefix}-resources"
