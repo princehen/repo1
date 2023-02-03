@@ -15,7 +15,7 @@ terraform {
 
 #Github provider
 provider "github" {
-  token="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"
+  token="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"
 }
 #Microsoft Azure Provider
 provider "azurerm" {
